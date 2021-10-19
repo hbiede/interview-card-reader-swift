@@ -21,6 +21,31 @@ public struct CardReader {
      * @returns {([missingEntryLogEmployees: String], [missingExitLogEmployees: String])}
      */
     public func getInvalidLogs(_ records: [ScanRecord]) -> ([String], [String]) {
-        return ([], [])
+        var entries = Set<String>()
+        var exits = Set<String>()
+        var peopleInRoom = Set<String>()
+        for r in records {
+            switch (r.scan) {
+            case .ENTER:
+                if (peopleInRoom.contains(r.employee)) {
+                    exits.insert(r.employee)
+                } else {
+                    peopleInRoom.insert(r.employee)
+                }
+                break
+            case .EXIT:
+                if (peopleInRoom.contains(r.employee)) {
+                    peopleInRoom.remove(r.employee)
+                } else {
+                    entries.insert(r.employee)
+                }
+            }
+        }
+        if (!peopleInRoom.isEmpty) {
+            for p in peopleInRoom {
+                exits.insert(p)
+            }
+        }
+        return (Array(entries), Array(exits))
     }
 }

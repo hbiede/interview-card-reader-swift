@@ -2,7 +2,7 @@
 
 DMSi has a secure access room with a card reader on each side. You must scan to enter and scan to exit. However, we've been having some issues with access logs lately. It seems that while the card reader is permitting entry, it is dropping some logs. We need to determine if it is the fault of the reader or the fault of the individuals' proxy cards. In order to do so, we must identify which employees have a dropped log entry.
 
-Our logs are formatted as an Array of scan record objects. Each log contains the employee name and the type of scan that was recorded, `enter` or `exit`.
+Our logs are formatted as an Array of scan record objects. Each log contains the employee name and the type of scan that was recorded, `.ENTER` or `.EXIT`.
 
 ```swift
 [
